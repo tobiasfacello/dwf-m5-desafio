@@ -53,7 +53,7 @@ export function initTimeoutPage(containerEl) {
 
 	const returnEl = divEl.querySelector(".return-button");
 	returnEl.addEventListener("click", () => {
-		containerEl.goTo("./instrucciones", root);
+		containerEl.goTo("/instrucciones", root);
 	});
 
 	return divEl;

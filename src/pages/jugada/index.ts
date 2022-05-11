@@ -12,7 +12,7 @@ export function initPlayPage(containerEl) {
 		counter--;
 		if (counter < -1) {
 			clearInterval(intervals);
-			containerEl.goTo("./timeout", root);
+			containerEl.goTo("/timeout", root);
 		}
 	}, 1000);
 
@@ -159,7 +159,7 @@ export function initPlayPage(containerEl) {
 				if (counterResult < 0) {
 					clearInterval(intervals);
 					clearInterval(intervalResultAppearance);
-					containerEl.goTo("./resultado", root);
+					containerEl.goTo("/resultado", root);
 				}
 			}, 1000);
 		});
