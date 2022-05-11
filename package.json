@@ -1,0 +1,23 @@
+{
+	"name": "dwf-m5-desafio",
+	"version": "1.0.0",
+	"repository": "https://github.com/tobiasfacello/dwf-m5-desafio.git",
+	"author": "Tobias Facello <tobiasfacellodeveloper@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^17.0.31",
+		"assert": "^2.0.0",
+		"console-browserify": "^1.2.0",
+		"parcel": "^2.5.0",
+		"process": "^0.11.10",
+		"util": "^0.12.4"
+	},
+	"scripts": {
+		"dev": "parcel serve ./src/index.html",
+		"build": "parcel build ./src/index.html --dist-dir build --public-url /dwf-m5-desafio",
+		"deploy": "gh-pages -d build"
+	},
+	"dependencies": {
+		"gh-pages": "^4.0.0"
+	}
+}
