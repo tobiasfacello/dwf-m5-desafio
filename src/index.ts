@@ -5,6 +5,7 @@ import { initRouter } from "./router";
 import "./components/title-component";
 import "./components/text-component";
 import "./components/timer-component";
+import "./components/hand-component";
 import "./components/score-component";
 
 function main() {

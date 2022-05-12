@@ -71,6 +71,7 @@ export function initInstructionPage(containerEl) {
         }
 
         .hand-img {
+            height: 100%;
             width: 100px;
         }
     `;

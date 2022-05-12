@@ -1,10 +1,5 @@
 import { state } from "../../state";
 
-//! Images
-const tijeras = require("url:../../images/tijeras.png");
-const piedra = require("url:../../images/piedra.png");
-const papel = require("url:../../images/papel.png");
-
 export function initPlayPage(containerEl) {
 	let counter = 3;
 
@@ -19,12 +14,12 @@ export function initPlayPage(containerEl) {
 	const divEl = document.createElement("div");
 	divEl.classList.add("div-container");
 
-	divEl.innerHTML = `   
+	divEl.innerHTML = `
 	<timer-component></timer-component>
     <div class="rps-container">
-		<button class="play-button play-tijeras" type="tijeras"><img class="hand-img" src="${tijeras}"></button>
-        <button class="play-button play-piedra" type="piedra"><img class="hand-img" src="${piedra}"></button>
-        <button class="play-button play-papel" type="papel"><img class="hand-img" src="${papel}"></button>
+		<hand-component class="hand" type="tijeras" hand="tijeras"></hand-component>
+		<hand-component class="hand" type="piedra" hand="piedra"></hand-component>
+		<hand-component class="hand" type="papel" hand="papel"></hand-component>
     </div>
     `;
 
@@ -40,15 +35,9 @@ export function initPlayPage(containerEl) {
             padding: 0 30px;
         }
 
-		.play-button {
-			border: none;
-			background-color: rgba(1, 1, 1, 0);
-		}
-
 		@media (min-width: 960px) {
-			.play-button img:hover {
-				border-radius: 10px;
-				box-shadow: 0 0 15px rgba(102,126,234,1);
+			.div-container {
+				padding: 0;
 			}
 		}
 
@@ -56,6 +45,7 @@ export function initPlayPage(containerEl) {
             display: flex;
             width: 100%;
             justify-content: space-evenly;
+			align-items: end;
         }
 
         @media (min-width: 960px) {
@@ -63,20 +53,6 @@ export function initPlayPage(containerEl) {
                 width: 30%;
             }
         }
-
-        .hand-img {
-            width: 100px;
-        }
-
-		.hand-img:active {
-			backgroud-color: #fff;
-		}
-
-		@media (min-width: 960px) {
-			.hand-img {
-				width: 150px;
-			}
-		}
     `;
 
 	divEl.appendChild(style);
@@ -85,8 +61,8 @@ export function initPlayPage(containerEl) {
 
 	const rpsContainer = divEl.querySelector(".rps-container").children;
 	for (const play of rpsContainer) {
-		play.addEventListener("click", () => {
-			console.log(play.getAttribute("type"));
+		play.addEventListener("click", (e) => {
+			e.preventDefault();
 			const myPlay = play.getAttribute("type");
 			const computerPlay = ["piedra", "papel", "tijeras"][
 				Math.trunc(Math.random() * 3)
@@ -98,7 +74,7 @@ export function initPlayPage(containerEl) {
 
 			style.textContent = `
 			.div-container {
-				height: 100vh;
+				height: 101vh;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
@@ -110,10 +86,12 @@ export function initPlayPage(containerEl) {
 
 			.computerPlay-container {
 				height: 100vh;
+				align-items: start;
 			}
+
 			.myPlay-container {
 				display: flex;
-				align-items: flex-end;
+				align-items: end;
 				height: 100vh;
 			}
 
@@ -144,12 +122,36 @@ export function initPlayPage(containerEl) {
 
 			divEl.innerHTML = `
 			<div class="computerPlay-container">
-			<img class="selected-hand-img" style="transform: rotate(180deg); width: 200px;" src="${require(`url:../../images/${computerPlay}.png`)}">
+			<hand-component class="computer-hand" type="${computerPlay}" hand="${computerPlay}"></hand-component>
 			</div>
 			<div class="myPlay-container">
-			<img class="selected-hand-img" style="width: 200px;" src="${require(`url:../../images/${myPlay}.png`)}">
+			<hand-component class="player-hand" type="${myPlay}" hand="${myPlay}"></hand-component>
 			</div>
 			`;
+
+			const playerHand = divEl.querySelector(".player-hand");
+			const playerHandImg =
+				playerHand.shadowRoot.querySelector(".hand-img");
+			playerHandImg.setAttribute(
+				"style",
+				`
+				height: 100%;
+				width: 200px;
+			`
+			);
+
+			const computerHand = divEl.querySelector(".computer-hand");
+			const computerHandImg =
+				computerHand.shadowRoot.querySelector(".hand-img");
+
+			computerHandImg.setAttribute(
+				"style",
+				`
+				height: 100%;
+				width: 200px;
+				transform: rotate(180deg);
+			`
+			);
 
 			divEl.appendChild(style);
 
@@ -164,70 +166,6 @@ export function initPlayPage(containerEl) {
 			}, 1000);
 		});
 	}
-
-	const buttonTijeras: any = divEl.querySelector(".play-tijeras");
-	const buttonPiedra: any = divEl.querySelector(".play-piedra");
-	const buttonPapel: any = divEl.querySelector(".play-papel");
-
-	buttonTijeras.addEventListener("click", () => {
-		buttonTijeras.style = `
-			position: relative;
-			bottom: 50px;
-			transform: scale(1.5);
-		`;
-
-		buttonPiedra.style = `
-			position: relative;
-			top: 50px;
-			opacity: 0.5;
-		`;
-
-		buttonPapel.style = `
-			position: relative;
-			top: 50px;
-			opacity: 0.5;
-		`;
-	});
-
-	buttonPiedra.addEventListener("click", () => {
-		buttonPiedra.style = `
-			position: relative;
-			bottom: 50px;
-			transform: scale(1.5);
-		`;
-
-		buttonTijeras.style = `
-			position: relative;
-			top: 50px;
-			opacity: 0.5;
-		`;
-
-		buttonPapel.style = `
-			position: relative;
-			top: 50px;
-			opacity: 0.5;
-		`;
-	});
-
-	buttonPapel.addEventListener("click", () => {
-		buttonPapel.style = `
-			position: relative;
-			bottom: 50px;
-			transform: scale(1.5);
-		`;
-
-		buttonTijeras.style = `
-			position: relative;
-			top: 50px;
-			opacity: 0.5;
-		`;
-
-		buttonPiedra.style = `
-			position: relative;
-			top: 50px;
-			opacity: 0.5;
-		`;
-	});
 
 	return divEl;
 }

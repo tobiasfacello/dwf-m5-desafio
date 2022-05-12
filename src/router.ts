@@ -68,6 +68,9 @@ function handleRoute(route: string, containerEl?) {
 }
 function initRouter(containerEl: Element) {
 	//? Si la ruta es "/" redirige a la pantalla "/welcome".
+	if (isGithubPages() || location.pathname !== "/") {
+		goTo("/", containerEl);
+	}
 	if (isGithubPages() || location.pathname == "/") {
 		window.addEventListener("load", () => {
 			goTo("/welcome", containerEl);

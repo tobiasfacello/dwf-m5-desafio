@@ -69,6 +69,7 @@ export function initHomePage(containerEl) {
         }
 
         .hand-img {
+            height: 100%;
             width: 100px;
         }
     `;
